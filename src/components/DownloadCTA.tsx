@@ -19,7 +19,7 @@ export function DownloadCTA({ onDownloadCV }: DownloadCTAProps) {
             alexfarman94@hotmail.co.uk
           </a>
           <a
-            href="https://www.linkedin.com/in/alex-farman/"
+            href="https://www.linkedin.com/in/alex-farman-53575a106/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"

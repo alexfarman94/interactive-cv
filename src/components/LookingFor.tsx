@@ -70,16 +70,10 @@ function AIPitchGenerator({ onDownloadCV }: { onDownloadCV: () => void }) {
     setPitch('');
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY || '',
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-opus-4-5',
           max_tokens: 300,
           system: `You are writing on behalf of Alex Farman, a GTM AI specialist. Alex's background:
 - Built 26 AI products for HiBob's 300-person global sales org, 7 flagship tools reaching 75-80% adoption
@@ -166,7 +160,7 @@ Write a concise, confident 2-3 sentence pitch explaining why Alex would be a str
             Email me
           </a>
           <a
-            href="https://www.linkedin.com/in/alex-farman/"
+            href="https://www.linkedin.com/in/alex-farman-53575a106/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 text-white rounded-lg text-sm font-semibold transition-colors duration-200 border border-white/20"

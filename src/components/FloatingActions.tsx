@@ -26,7 +26,7 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
       icon: <Linkedin size={15} />,
       label: 'LinkedIn',
       onClick: undefined,
-      href: 'https://www.linkedin.com/in/alex-farman/',
+      href: 'https://www.linkedin.com/in/alex-farman-53575a106/',
     },
     {
       icon: <Mail size={15} />,

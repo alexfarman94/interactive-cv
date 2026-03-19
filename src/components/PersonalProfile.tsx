@@ -48,7 +48,7 @@ export function PersonalProfile() {
                 <a href="mailto:alexfarman94@hotmail.co.uk" className="flex items-center gap-1.5 hover:text-accent transition-colors">
                   <Mail size={13} /> alexfarman94@hotmail.co.uk
                 </a>
-                <a href="https://www.linkedin.com/in/alex-farman/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-accent transition-colors">
+                <a href="https://www.linkedin.com/in/alex-farman-53575a106/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-accent transition-colors">
                   <Linkedin size={13} /> LinkedIn
                 </a>
                 <span className="flex items-center gap-1.5">

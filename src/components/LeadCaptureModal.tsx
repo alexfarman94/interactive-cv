@@ -30,22 +30,19 @@ export function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalProps) {
     setError('');
 
     try {
-      const formspreeId = import.meta.env.VITE_FORMSPREE_ID;
-      if (formspreeId) {
-        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: name || 'Not provided',
-            email,
-            source: 'CV Download',
-            _subject: `CV Download request from ${email}`,
-          }),
-        });
-        if (!res.ok) {
-          // Non-blocking — still allow download even if submission fails
-          console.warn('Formspree submission failed, proceeding with download');
-        }
+      const res = await fetch('https://formspree.io/f/mgondkyv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name || 'Not provided',
+          email,
+          source: 'CV Download',
+          _subject: `CV Download request from ${email}`,
+        }),
+      });
+      if (!res.ok) {
+        // Non-blocking — still allow download even if submission fails
+        console.warn('Formspree submission failed, proceeding with download');
       }
     } catch {
       // Non-blocking — don't gate the download on network errors
