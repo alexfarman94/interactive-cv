@@ -1,4 +1,6 @@
 import { TabId } from './Navigation';
+import { NumberTicker } from './ui/number-ticker';
+import { BlurFade } from './ui/blur-fade';
 
 interface HeroProps {
   onTabChange: (tab: TabId) => void;
@@ -6,55 +8,94 @@ interface HeroProps {
 
 export function Hero({ onTabChange }: HeroProps) {
   return (
-    <section className="bg-bg-primary border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 py-14 md:py-20">
+    <section className="relative bg-bg-primary border-b border-border overflow-hidden">
+
+      {/* Dot pattern background */}
+      <div
+        className="absolute inset-0 opacity-[0.4]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #d1d5db 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      {/* Fade out towards bottom */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-primary" />
+
+      <div className="relative max-w-7xl mx-auto px-6 py-14 md:py-20">
         <div className="max-w-3xl">
-          <div className="inline-block mb-4 px-3 py-1 bg-accent/10 text-accent text-sm font-semibold rounded-full">
-            GTM AI Strategy Consultant · Bristol, UK
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-4 leading-tight">
-            I turn AI experimentation<br className="hidden md:block" />
-            <span className="text-accent"> into measurable GTM impact</span>
-          </h1>
-          <p className="text-lg text-text-secondary mb-8 max-w-2xl leading-relaxed">
-            Scaled AI adoption across a 300-person sales org. Built 26 AI products from ideation to 80% adoption.
-            Now helping Series A–C SaaS companies do the same.
-          </p>
 
-          {/* Key stats */}
-          <div className="flex flex-wrap gap-x-8 gap-y-3 mb-8">
-            {[
-              { value: '26', label: 'AI products built' },
-              { value: '4,440', label: 'Hours saved annually' },
-              { value: '80%', label: 'Peak tool adoption' },
-              { value: '150%', label: 'Adoption lift in 60 days' },
-            ].map(stat => (
-              <div key={stat.label}>
-                <span className="text-2xl font-bold text-text-primary">{stat.value}</span>
-                <span className="text-text-secondary text-sm ml-2">{stat.label}</span>
-              </div>
-            ))}
-          </div>
+          {/* Eyebrow */}
+          <BlurFade delay={0}>
+            <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 bg-accent/8 border border-accent/20 text-accent text-sm font-semibold rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              GTM AI Strategy Consultant · Bristol, UK
+            </div>
+          </BlurFade>
 
-          {/* Navigation shortcuts */}
-          <div className="flex flex-wrap gap-3">
-            {([
-              { id: 'projects', label: '26 projects & impact →' },
-              { id: 'career', label: 'Career history →' },
-              { id: 'profile', label: 'Personal profile →' },
-            ] as { id: TabId; label: string }[]).map(btn => (
-              <button
-                key={btn.id}
-                onClick={() => {
-                  onTabChange(btn.id);
-                  document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="px-4 py-2 text-sm font-semibold text-accent border border-accent/30 rounded-lg hover:bg-accent hover:text-white hover:border-accent transition-colors duration-200"
+          {/* Headline */}
+          <BlurFade delay={0.08}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-5 leading-[1.1] tracking-tight">
+              I turn AI experimentation
+              <br className="hidden md:block" />
+              <span
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: 'linear-gradient(135deg, #1E40AF 0%, #3b82f6 50%, #1E40AF 100%)' }}
               >
-                {btn.label}
-              </button>
-            ))}
-          </div>
+                {' '}into measurable GTM impact
+              </span>
+            </h1>
+          </BlurFade>
+
+          {/* Subheading */}
+          <BlurFade delay={0.15}>
+            <p className="text-lg text-text-secondary mb-10 max-w-2xl leading-relaxed">
+              Scaled AI adoption across a 300-person global sales org at HiBob. Built 26 products — 7 flagships at 75–80% adoption.
+              Looking for a Head of AI Strategy or GTM AI leadership role.
+            </p>
+          </BlurFade>
+
+          {/* Stats row */}
+          <BlurFade delay={0.22}>
+            <div className="flex flex-wrap gap-8 mb-10">
+              {([
+                { value: 26, prefix: '',  suffix: '',      label: 'AI products built' },
+                { value: 15440, prefix: '', suffix: '',    label: 'Hours saved annually' },
+                { value: 30, prefix: '~', suffix: ' FTEs', label: 'Capacity unlocked' },
+                { value: 80, prefix: '',  suffix: '%',     label: 'Peak tool adoption' },
+                { value: 150, prefix: '', suffix: '%',     label: 'Adoption lift in 60 days' },
+              ] as { value: number; prefix: string; suffix: string; label: string }[]).map(stat => (
+                <div key={stat.label}>
+                  <div className="text-2xl font-bold text-text-primary tabular-nums">
+                    <NumberTicker value={stat.value} prefix={stat.prefix} suffix={stat.suffix} duration={1200} />
+                  </div>
+                  <div className="text-text-secondary text-sm mt-0.5">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </BlurFade>
+
+          {/* CTA buttons */}
+          <BlurFade delay={0.28}>
+            <div className="flex flex-wrap gap-3">
+              {([
+                { id: 'projects', label: '26 projects & impact →' },
+                { id: 'career',   label: 'Career history →' },
+                { id: 'profile',  label: 'Personal profile →' },
+              ] as { id: TabId; label: string }[]).map(btn => (
+                <button
+                  key={btn.id}
+                  onClick={() => {
+                    onTabChange(btn.id);
+                    document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2 text-sm font-semibold text-accent border border-accent/30 rounded-lg hover:bg-accent hover:text-white hover:border-accent transition-all duration-200"
+                >
+                  {btn.label}
+                </button>
+              ))}
+            </div>
+          </BlurFade>
+
         </div>
       </div>
     </section>

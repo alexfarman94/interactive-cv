@@ -7,11 +7,12 @@ export interface Project {
   id: string;
   title: string;
   context: string;
-  actions: string[];
+  actions?: string[];
   impact: Impact[];
   tags: string[];
   deepDetail?: string;
   priority: number;
+  flagship?: boolean;
 }
 
 export interface Message {

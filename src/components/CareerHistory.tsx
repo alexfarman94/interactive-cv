@@ -1,10 +1,5 @@
-import { motion } from 'framer-motion';
-import { Award, TrendingUp } from 'lucide-react';
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
-};
+import { Award, ChevronRight } from 'lucide-react';
+import { BlurFade } from './ui/blur-fade';
 
 interface Role {
   company: string;
@@ -113,108 +108,117 @@ const roles: Role[] = [
 
 export function CareerHistory() {
   return (
-    <motion.div
-      variants={fadeIn}
-      initial="hidden"
-      animate="visible"
-      className="py-16 md:py-20"
-    >
+    <div className="py-16 md:py-20">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Career History</h2>
-          <p className="text-text-secondary">7+ years in B2B tech sales, solutions engineering and AI strategy</p>
-        </div>
 
-        {/* Education callout */}
-        <div className="mb-10 p-4 bg-bg-secondary border border-border rounded-lg flex items-center gap-4">
-          <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-            <span className="text-accent text-sm font-bold">🎓</span>
+        {/* Header */}
+        <BlurFade delay={0}>
+          <div className="mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Career History</h2>
+            <p className="text-text-secondary">7+ years in B2B tech sales, solutions engineering and AI strategy</p>
           </div>
-          <div>
-            <div className="font-semibold text-text-primary text-sm">Nottingham Trent University</div>
-            <div className="text-xs text-text-secondary">BSc Psychology (2.1) · Sept 2013 – June 2016</div>
+        </BlurFade>
+
+        {/* Education */}
+        <BlurFade delay={0.05}>
+          <div className="mb-10 p-4 bg-bg-secondary border border-border rounded-xl flex items-center gap-4">
+            <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center flex-shrink-0 text-lg">
+              🎓
+            </div>
+            <div>
+              <div className="font-semibold text-text-primary text-sm">Nottingham Trent University</div>
+              <div className="text-xs text-text-secondary mt-0.5">BSc Psychology (2.1) · Sept 2013 – June 2016</div>
+            </div>
           </div>
-        </div>
+        </BlurFade>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-border" />
+          {/* Vertical line */}
+          <div className="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-accent via-border to-border" />
 
-          <div className="space-y-10">
+          <div className="space-y-8">
             {roles.map((role, i) => (
-              <div key={i} className="relative pl-12 md:pl-16">
-                {/* Timeline dot */}
-                <div className={`absolute left-2.5 md:left-4 top-1.5 w-3 h-3 rounded-full border-2 ${
-                  role.isCurrent
-                    ? 'bg-accent border-accent'
-                    : 'bg-white border-border'
-                }`} />
-                {role.isCurrent && (
-                  <div className="absolute left-2.5 md:left-4 top-1.5 w-3 h-3 rounded-full bg-accent animate-ping opacity-40" />
-                )}
-
-                <div className="bg-white border border-border rounded-xl p-6 hover:border-accent/30 transition-colors">
-                  {/* Header */}
-                  <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
-                    <div>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="text-lg font-bold text-text-primary">{role.title}</h3>
-                        {role.isCurrent && (
-                          <span className="px-2 py-0.5 bg-accent/10 text-accent text-xs font-semibold rounded-full">Current</span>
-                        )}
-                      </div>
-                      <div className="text-accent font-semibold text-sm mt-0.5">{role.company}</div>
-                    </div>
-                    <span className="text-xs text-text-secondary bg-bg-secondary px-3 py-1 rounded-full border border-border flex-shrink-0">
-                      {role.period}
-                    </span>
-                  </div>
-
-                  {/* Summary */}
-                  {role.summary && (
-                    <p className="text-sm text-text-secondary mb-4 leading-relaxed">{role.summary}</p>
+              <BlurFade key={i} delay={0.08 + i * 0.07}>
+                <div className="relative pl-12">
+                  {/* Timeline dot */}
+                  <div className={`absolute left-3 top-5 w-3 h-3 rounded-full border-2 z-10 ${
+                    role.isCurrent
+                      ? 'bg-accent border-accent shadow-[0_0_0_3px_rgba(30,64,175,0.15)]'
+                      : i <= 1 ? 'bg-accent/60 border-accent/60'
+                      : 'bg-white border-border'
+                  }`} />
+                  {role.isCurrent && (
+                    <div className="absolute left-3 top-5 w-3 h-3 rounded-full bg-accent animate-ping opacity-30 z-10" />
                   )}
 
-                  {/* Metrics */}
-                  {role.metrics && (
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 p-4 bg-bg-secondary rounded-lg">
-                      {role.metrics.map((m, j) => (
-                        <div key={j}>
-                          <div className="text-lg font-bold text-success">{m.value}</div>
-                          <div className="text-xs text-text-secondary leading-tight">{m.label}</div>
+                  <div className={`bg-white border rounded-xl p-6 transition-all duration-200
+                    hover:border-accent/30 hover:shadow-[0_4px_20px_rgba(30,64,175,0.06)]
+                    ${role.isCurrent ? 'border-accent/30 shadow-[0_2px_12px_rgba(30,64,175,0.06)]' : 'border-border'}`}
+                  >
+                    {/* Header */}
+                    <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+                      <div>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h3 className="text-base font-bold text-text-primary leading-snug">{role.title}</h3>
+                          {role.isCurrent && (
+                            <span className="px-2 py-0.5 bg-accent text-white text-[10px] font-semibold rounded-full">
+                              Current
+                            </span>
+                          )}
                         </div>
-                      ))}
+                        <div className="text-accent font-semibold text-sm mt-0.5">{role.company}</div>
+                      </div>
+                      <span className="text-xs text-text-secondary bg-bg-secondary px-3 py-1 rounded-full border border-border flex-shrink-0">
+                        {role.period}
+                      </span>
                     </div>
-                  )}
 
-                  {/* Awards */}
-                  {role.awards && role.awards.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {role.awards.map((award, j) => (
-                        <span key={j} className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold rounded-full">
-                          <Award size={11} />
-                          {award}
-                        </span>
+                    {/* Summary */}
+                    {role.summary && (
+                      <p className="text-sm text-text-secondary mb-4 leading-relaxed">{role.summary}</p>
+                    )}
+
+                    {/* Metrics */}
+                    {role.metrics && (
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 p-4 bg-bg-secondary rounded-lg">
+                        {role.metrics.map((m, j) => (
+                          <div key={j}>
+                            <div className="text-lg font-bold text-success leading-tight">{m.value}</div>
+                            <div className="text-xs text-text-secondary leading-tight mt-0.5">{m.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Awards */}
+                    {role.awards && role.awards.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {role.awards.map((award, j) => (
+                          <span key={j} className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold rounded-full">
+                            <Award size={10} />
+                            {award}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Highlights */}
+                    <ul className="space-y-1.5">
+                      {role.highlights.map((h, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm">
+                          <ChevronRight size={13} className="text-accent mt-0.5 flex-shrink-0" />
+                          <span className="text-text-primary">{h}</span>
+                        </li>
                       ))}
-                    </div>
-                  )}
-
-                  {/* Highlights */}
-                  <ul className="space-y-1.5">
-                    {role.highlights.map((h, j) => (
-                      <li key={j} className="flex items-start gap-2 text-sm">
-                        <TrendingUp size={13} className="text-accent mt-0.5 flex-shrink-0" />
-                        <span className="text-text-primary">{h}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </BlurFade>
             ))}
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
