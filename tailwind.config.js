@@ -7,14 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        'bg-primary': '#FFFFFF',
-        'bg-secondary': '#FAFAFA',
-        'text-primary': '#1A1A1A',
-        'text-secondary': '#6B7280',
-        'accent': '#1E40AF',
-        'accent-hover': '#1E3A8A',
-        'border': '#E5E5E5',
-        'success': '#059669',
+        'bg-primary': '#FAFAF9',
+        'bg-secondary': '#F5F5F4',
+        'text-primary': '#0C0A09',
+        'text-secondary': '#78716C',
+        'accent': '#4F46E5',
+        'accent-hover': '#4338CA',
+        'border': '#E7E5E4',
+        'success': '#10B981',
+        'hero-dark': '#0C0A09',
+        'hero-accent': '#6366F1',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],

@@ -27,7 +27,6 @@ export function QAOverlay() {
     if (!trimmed || isLoading) return;
 
     const newMessages: Message[] = [...messages, { role: 'user', content: trimmed }];
-    // Keep last 6 messages for context (3 exchanges)
     const contextMessages = newMessages.slice(-6);
 
     setMessages(newMessages);
@@ -91,16 +90,16 @@ export function QAOverlay() {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className="overflow-hidden"
           >
-            <div className="bg-white border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+            <div className="bg-white/95 backdrop-blur-lg border-t border-stone-200/60 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
               <div className="max-w-3xl mx-auto px-4 md:px-6">
-                <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <div className="flex items-center justify-between py-2 border-b border-stone-200/40">
                   <div className="flex items-center gap-1.5 text-xs text-text-secondary">
                     <MessageCircle size={12} />
                     <span>Ask me anything about Alex</span>
                   </div>
                   <button
                     onClick={collapse}
-                    className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors"
+                    className="p-1 rounded text-text-secondary hover:text-text-primary hover:bg-stone-100 transition-colors"
                     aria-label="Collapse"
                   >
                     <X size={14} />
@@ -112,8 +111,8 @@ export function QAOverlay() {
                       <div
                         className={`max-w-[85%] px-3.5 py-2.5 rounded-xl text-sm leading-relaxed ${
                           msg.role === 'user'
-                            ? 'bg-accent text-white rounded-br-sm'
-                            : 'bg-bg-secondary text-text-primary rounded-bl-sm'
+                            ? 'bg-indigo-600 text-white rounded-br-sm'
+                            : 'bg-stone-100 text-text-primary rounded-bl-sm'
                         }`}
                       >
                         {msg.content}
@@ -122,7 +121,7 @@ export function QAOverlay() {
                   ))}
                   {isLoading && (
                     <div className="flex justify-start">
-                      <div className="bg-bg-secondary rounded-xl rounded-bl-sm px-3.5 py-2.5 flex items-center gap-2">
+                      <div className="bg-stone-100 rounded-xl rounded-bl-sm px-3.5 py-2.5 flex items-center gap-2">
                         <Loader2 size={14} className="animate-spin text-text-secondary" />
                         <span className="text-sm text-text-secondary">Thinking...</span>
                       </div>
@@ -136,7 +135,7 @@ export function QAOverlay() {
       </AnimatePresence>
 
       {/* Input bar */}
-      <div className="bg-white border-t border-border shadow-[0_-2px_12px_rgba(0,0,0,0.06)]">
+      <div className="bg-white/95 backdrop-blur-lg border-t border-stone-200/60 shadow-[0_-2px_12px_rgba(0,0,0,0.04)]">
         <div className="max-w-3xl mx-auto px-4 md:px-6 py-3">
           <form onSubmit={handleSubmit} className="flex items-center gap-2">
             <div className="relative flex-1">
@@ -147,14 +146,14 @@ export function QAOverlay() {
                 onChange={e => setInput(e.target.value)}
                 onFocus={() => hasMessages && setIsExpanded(true)}
                 placeholder="Ask me anything about Alex's experience..."
-                className="w-full pl-4 pr-4 py-2.5 bg-bg-secondary border border-border rounded-xl text-sm text-text-primary placeholder-text-secondary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-colors"
+                className="w-full pl-4 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm text-text-primary placeholder-stone-400 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400/30 transition-colors"
                 disabled={isLoading}
               />
             </div>
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="flex items-center justify-center w-10 h-10 bg-accent hover:bg-accent-hover disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl transition-colors duration-200"
+              className="flex items-center justify-center w-10 h-10 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl transition-colors duration-200"
             >
               <Send size={15} />
             </button>

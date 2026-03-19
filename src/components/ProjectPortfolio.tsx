@@ -51,7 +51,7 @@ export function ProjectPortfolio() {
         </div>
 
         {/* Filter bar */}
-        <div className="mb-8 p-5 bg-bg-secondary border border-border rounded-xl">
+        <div className="mb-8 p-5 bg-stone-50 rounded-2xl shadow-sm border border-stone-100">
           <div className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-3">
             Filter by priority
           </div>
@@ -63,15 +63,15 @@ export function ProjectPortfolio() {
                 <button
                   key={filter.id}
                   onClick={() => toggleFilter(filter.id)}
-                  className={`text-left p-3 rounded-lg border-2 transition-all duration-150 ${
+                  className={`text-left p-3 rounded-xl border-2 transition-all duration-150 ${
                     isSelected
-                      ? 'border-accent bg-accent/5 ring-1 ring-accent/20'
-                      : 'border-border bg-white hover:border-accent/40'
+                      ? 'border-indigo-400 bg-indigo-50 ring-1 ring-indigo-200/50'
+                      : 'border-stone-200 bg-white hover:border-indigo-300/50 hover:shadow-sm'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <Icon size={14} className={isSelected ? 'text-accent' : 'text-text-secondary'} />
-                    <span className={`text-xs font-semibold ${isSelected ? 'text-accent' : 'text-text-primary'}`}>
+                    <Icon size={14} className={isSelected ? 'text-indigo-600' : 'text-text-secondary'} />
+                    <span className={`text-xs font-semibold ${isSelected ? 'text-indigo-600' : 'text-text-primary'}`}>
                       {filter.label}
                     </span>
                   </div>
@@ -89,7 +89,7 @@ export function ProjectPortfolio() {
               </span>
               <button
                 onClick={() => setSelectedFilters([])}
-                className="text-xs text-accent hover:underline"
+                className="text-xs text-indigo-600 hover:underline"
               >
                 Clear filters
               </button>
@@ -101,10 +101,10 @@ export function ProjectPortfolio() {
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-5">
             <h3 className="text-lg font-bold text-text-primary">Flagship Projects</h3>
-            <span className="px-2.5 py-0.5 text-xs font-semibold bg-accent/10 text-accent rounded-full">
+            <span className="px-2.5 py-0.5 text-xs font-semibold bg-indigo-50 text-indigo-700 rounded-full">
               {flagship.length}
             </span>
-            <div className="flex-1 h-px bg-border" />
+            <div className="flex-1 h-px bg-stone-200" />
           </div>
           <AnimatePresence mode="popLayout">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -125,10 +125,10 @@ export function ProjectPortfolio() {
           <div>
             <div className="flex items-center gap-3 mb-5">
               <h3 className="text-lg font-bold text-text-primary">Also Built</h3>
-              <span className="px-2.5 py-0.5 text-xs font-semibold bg-gray-100 text-text-secondary rounded-full">
+              <span className="px-2.5 py-0.5 text-xs font-semibold bg-stone-100 text-stone-600 rounded-full">
                 {additional.length}
               </span>
-              <div className="flex-1 h-px bg-border" />
+              <div className="flex-1 h-px bg-stone-200" />
             </div>
             <AnimatePresence mode="popLayout">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

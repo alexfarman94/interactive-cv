@@ -121,8 +121,8 @@ export function CareerHistory() {
 
         {/* Education */}
         <BlurFade delay={0.05}>
-          <div className="mb-10 p-4 bg-bg-secondary border border-border rounded-xl flex items-center gap-4">
-            <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center flex-shrink-0 text-lg">
+          <div className="mb-10 p-4 bg-stone-50 rounded-2xl shadow-sm flex items-center gap-4 border border-stone-100">
+            <div className="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center flex-shrink-0 text-lg">
               🎓
             </div>
             <div>
@@ -135,7 +135,7 @@ export function CareerHistory() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-accent via-border to-border" />
+          <div className="absolute left-[18px] top-2 bottom-2 w-px bg-gradient-to-b from-indigo-400 via-stone-200 to-stone-200" />
 
           <div className="space-y-8">
             {roles.map((role, i) => (
@@ -144,17 +144,17 @@ export function CareerHistory() {
                   {/* Timeline dot */}
                   <div className={`absolute left-3 top-5 w-3 h-3 rounded-full border-2 z-10 ${
                     role.isCurrent
-                      ? 'bg-accent border-accent shadow-[0_0_0_3px_rgba(30,64,175,0.15)]'
-                      : i <= 1 ? 'bg-accent/60 border-accent/60'
-                      : 'bg-white border-border'
+                      ? 'bg-indigo-500 border-indigo-500 shadow-[0_0_0_3px_rgba(79,70,229,0.15)]'
+                      : i <= 1 ? 'bg-indigo-400/60 border-indigo-400/60'
+                      : 'bg-white border-stone-300'
                   }`} />
                   {role.isCurrent && (
-                    <div className="absolute left-3 top-5 w-3 h-3 rounded-full bg-accent animate-ping opacity-30 z-10" />
+                    <div className="absolute left-3 top-5 w-3 h-3 rounded-full bg-indigo-500 animate-ping opacity-30 z-10" />
                   )}
 
-                  <div className={`bg-white border rounded-xl p-6 transition-all duration-200
-                    hover:border-accent/30 hover:shadow-[0_4px_20px_rgba(30,64,175,0.06)]
-                    ${role.isCurrent ? 'border-accent/30 shadow-[0_2px_12px_rgba(30,64,175,0.06)]' : 'border-border'}`}
+                  <div className={`bg-white rounded-2xl p-6 transition-all duration-200 shadow-sm
+                    hover:shadow-md hover:-translate-y-0.5
+                    ${role.isCurrent ? 'border border-indigo-200/50 shadow-md' : 'border border-stone-100'}`}
                   >
                     {/* Header */}
                     <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
@@ -162,14 +162,14 @@ export function CareerHistory() {
                         <div className="flex items-center gap-2 flex-wrap">
                           <h3 className="text-base font-bold text-text-primary leading-snug">{role.title}</h3>
                           {role.isCurrent && (
-                            <span className="px-2 py-0.5 bg-accent text-white text-[10px] font-semibold rounded-full">
+                            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[10px] font-semibold rounded-full border border-emerald-200">
                               Current
                             </span>
                           )}
                         </div>
-                        <div className="text-accent font-semibold text-sm mt-0.5">{role.company}</div>
+                        <div className="text-indigo-600 font-semibold text-sm mt-0.5">{role.company}</div>
                       </div>
-                      <span className="text-xs text-text-secondary bg-bg-secondary px-3 py-1 rounded-full border border-border flex-shrink-0">
+                      <span className="text-xs text-text-secondary bg-stone-50 px-3 py-1 rounded-full border border-stone-100 flex-shrink-0">
                         {role.period}
                       </span>
                     </div>
@@ -181,10 +181,10 @@ export function CareerHistory() {
 
                     {/* Metrics */}
                     {role.metrics && (
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 p-4 bg-bg-secondary rounded-lg">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 p-4 bg-stone-50 rounded-xl">
                         {role.metrics.map((m, j) => (
                           <div key={j}>
-                            <div className="text-lg font-bold text-success leading-tight">{m.value}</div>
+                            <div className="text-lg font-bold text-emerald-600 leading-tight">{m.value}</div>
                             <div className="text-xs text-text-secondary leading-tight mt-0.5">{m.label}</div>
                           </div>
                         ))}
@@ -207,7 +207,7 @@ export function CareerHistory() {
                     <ul className="space-y-1.5">
                       {role.highlights.map((h, j) => (
                         <li key={j} className="flex items-start gap-2 text-sm">
-                          <ChevronRight size={13} className="text-accent mt-0.5 flex-shrink-0" />
+                          <ChevronRight size={13} className="text-indigo-500 mt-0.5 flex-shrink-0" />
                           <span className="text-text-primary">{h}</span>
                         </li>
                       ))}

@@ -9,7 +9,6 @@ interface FloatingActionsProps {
 export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
   const [visible, setVisible] = useState(false);
 
-  // Delay entrance so it doesn't distract on first load
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 1500);
     return () => clearTimeout(timer);
@@ -53,10 +52,10 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
                 href={action.href}
                 target={action.href.startsWith('mailto') ? undefined : '_blank'}
                 rel={action.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                className="group flex items-center gap-2 pl-3 pr-4 py-2.5 bg-white border border-border hover:border-accent/40 rounded-xl shadow-md hover:shadow-lg text-sm font-semibold text-text-primary hover:text-accent transition-all duration-200"
+                className="group flex items-center gap-2 pl-3 pr-4 py-2.5 bg-white/80 backdrop-blur-md border border-stone-200/50 hover:border-indigo-300/50 rounded-2xl shadow-lg shadow-stone-200/50 hover:shadow-xl text-sm font-semibold text-text-primary hover:text-indigo-600 transition-all duration-200"
                 title={action.label}
               >
-                <span className="text-text-secondary group-hover:text-accent transition-colors duration-200">
+                <span className="text-text-secondary group-hover:text-indigo-600 transition-colors duration-200">
                   {action.icon}
                 </span>
                 <span className="hidden md:inline">{action.label}</span>
@@ -65,10 +64,10 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
               <button
                 key={i}
                 onClick={action.onClick}
-                className="group flex items-center gap-2 pl-3 pr-4 py-2.5 bg-white border border-border hover:border-accent/40 rounded-xl shadow-md hover:shadow-lg text-sm font-semibold text-text-primary hover:text-accent transition-all duration-200"
+                className="group flex items-center gap-2 pl-3 pr-4 py-2.5 bg-white/80 backdrop-blur-md border border-stone-200/50 hover:border-indigo-300/50 rounded-2xl shadow-lg shadow-stone-200/50 hover:shadow-xl text-sm font-semibold text-text-primary hover:text-indigo-600 transition-all duration-200"
                 title={action.label}
               >
-                <span className="text-text-secondary group-hover:text-accent transition-colors duration-200">
+                <span className="text-text-secondary group-hover:text-indigo-600 transition-colors duration-200">
                   {action.icon}
                 </span>
                 <span className="hidden md:inline">{action.label}</span>

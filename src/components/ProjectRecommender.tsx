@@ -34,7 +34,6 @@ interface RecommendedProject {
   keyMetric: string;
 }
 
-// Build a condensed summary of all projects for the system prompt
 const projectSummaries = projects
   .map(
     p =>
@@ -56,7 +55,6 @@ export function ProjectRecommender({ onViewProject }: ProjectRecommenderProps) {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      // All steps done — call AI
       setIsLoading(true);
       setError('');
 
@@ -99,7 +97,6 @@ Example format:
         const data = await response.json();
         const text = data.content?.[0]?.text || '';
 
-        // Parse the JSON from the response
         const jsonMatch = text.match(/\[[\s\S]*\]/);
         if (jsonMatch) {
           const parsed = JSON.parse(jsonMatch[0]) as RecommendedProject[];
@@ -126,10 +123,10 @@ Example format:
   const stepProgress = Math.min(currentStep + 1, steps.length);
 
   return (
-    <div className="relative bg-gradient-to-br from-accent to-blue-700 rounded-2xl p-8 md:p-10 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-8 md:p-10 overflow-hidden">
       {/* Dot pattern */}
       <div
-        className="absolute inset-0 opacity-[0.08]"
+        className="absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
           backgroundSize: '24px 24px',
@@ -139,10 +136,10 @@ Example format:
       <div className="relative">
         {/* Header */}
         <div className="flex items-center gap-2 mb-1">
-          <Sparkles size={18} className="text-blue-200" />
+          <Sparkles size={18} className="text-indigo-200" />
           <h3 className="text-xl md:text-2xl font-bold text-white">Which of my projects are most relevant to you?</h3>
         </div>
-        <p className="text-blue-100 text-sm mb-6 leading-relaxed">
+        <p className="text-indigo-200 text-sm mb-6 leading-relaxed">
           Answer 3 quick questions and I'll match you to the most relevant work from my portfolio.
         </p>
 
@@ -176,7 +173,7 @@ Example format:
                   <button
                     key={i}
                     onClick={() => handleSelect(option)}
-                    className="text-left px-4 py-3 bg-white/10 hover:bg-white/20 border border-white/15 hover:border-white/30 rounded-xl text-sm text-white font-medium transition-all duration-150 flex items-center justify-between gap-2 group"
+                    className="text-left px-4 py-3 bg-white/[0.08] hover:bg-white/[0.15] border border-white/[0.12] hover:border-white/[0.25] rounded-xl text-sm text-white font-medium transition-all duration-150 flex items-center justify-between gap-2 group"
                   >
                     {option}
                     <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
@@ -202,8 +199,8 @@ Example format:
         {/* Error */}
         {error && (
           <div className="text-center py-6">
-            <p className="text-blue-100 text-sm mb-3">{error}</p>
-            <button onClick={reset} className="text-white text-sm underline underline-offset-2 hover:text-blue-100">
+            <p className="text-indigo-200 text-sm mb-3">{error}</p>
+            <button onClick={reset} className="text-white text-sm underline underline-offset-2 hover:text-indigo-100">
               Try again
             </button>
           </div>
@@ -212,7 +209,7 @@ Example format:
         {/* Results */}
         {results.length > 0 && (
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-            <p className="text-white/70 text-xs uppercase tracking-widest font-semibold mb-4">
+            <p className="text-white/60 text-xs uppercase tracking-widest font-semibold mb-4">
               Based on your answers, here are my most relevant projects:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
@@ -222,20 +219,20 @@ Example format:
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1, duration: 0.25 }}
-                  className="bg-white/12 backdrop-blur-sm border border-white/15 rounded-xl p-4"
+                  className="bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] rounded-xl p-4"
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <h4 className="text-white font-semibold text-sm leading-tight">{project.title}</h4>
                     <button
                       onClick={onViewProject}
-                      className="text-blue-200 hover:text-white transition-colors flex-shrink-0"
+                      className="text-indigo-200 hover:text-white transition-colors flex-shrink-0"
                       title="View in Projects tab"
                     >
                       <ExternalLink size={13} />
                     </button>
                   </div>
-                  <p className="text-blue-100 text-xs leading-relaxed mb-2.5">{project.reason}</p>
-                  <div className="inline-block px-2 py-0.5 bg-white/15 rounded text-xs text-white font-semibold">
+                  <p className="text-indigo-200 text-xs leading-relaxed mb-2.5">{project.reason}</p>
+                  <div className="inline-block px-2 py-0.5 bg-white/[0.12] rounded text-xs text-white font-semibold">
                     {project.keyMetric}
                   </div>
                 </motion.div>
@@ -243,7 +240,7 @@ Example format:
             </div>
             <button
               onClick={reset}
-              className="inline-flex items-center gap-1.5 text-blue-200 hover:text-white text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 text-indigo-200 hover:text-white text-sm font-medium transition-colors"
             >
               <RotateCcw size={13} />
               Start over

@@ -1,4 +1,5 @@
 import { User, Briefcase, Target, LayoutGrid } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export type TabId = 'profile' | 'career' | 'looking-for' | 'projects';
 
@@ -16,13 +17,13 @@ interface NavigationProps {
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
-    <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-border shadow-sm">
+    <div className="sticky top-0 z-40 bg-white/90 backdrop-blur-lg border-b border-stone-200/60 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex items-center gap-0">
 
-          {/* Name anchor — visible on desktop, gives the sticky bar identity */}
-          <div className="hidden md:flex items-center gap-2.5 pr-6 mr-2 border-r border-border py-3 flex-shrink-0">
-            <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center">
+          {/* Name anchor */}
+          <div className="hidden md:flex items-center gap-2.5 pr-6 mr-2 border-r border-stone-200/60 py-3 flex-shrink-0">
+            <div className="w-7 h-7 rounded-full bg-stone-900 flex items-center justify-center">
               <span className="text-white text-xs font-bold">AF</span>
             </div>
             <div className="leading-tight">
@@ -32,21 +33,28 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
           </div>
 
           {/* Tab strip */}
-          <nav className="flex overflow-x-auto scrollbar-hide flex-1 -mb-px">
+          <nav className="flex overflow-x-auto scrollbar-hide flex-1 py-1.5">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
-                className={`relative flex items-center gap-1.5 px-4 md:px-5 py-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-all duration-200 ${
+                className={`relative flex items-center gap-1.5 px-4 md:px-5 py-2.5 text-sm font-semibold whitespace-nowrap rounded-lg transition-colors duration-200 ${
                   activeTab === tab.id
-                    ? 'border-accent text-accent'
-                    : 'border-transparent text-text-secondary hover:text-text-primary hover:border-gray-200'
+                    ? 'text-indigo-600'
+                    : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
-                <span className={`transition-colors duration-200 ${activeTab === tab.id ? 'text-accent' : 'text-text-secondary'}`}>
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="active-tab"
+                    className="absolute inset-0 bg-indigo-50 rounded-lg"
+                    transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
+                  />
+                )}
+                <span className={`relative z-10 transition-colors duration-200 ${activeTab === tab.id ? 'text-indigo-600' : 'text-text-secondary'}`}>
                   {tab.icon}
                 </span>
-                {tab.label}
+                <span className="relative z-10">{tab.label}</span>
               </button>
             ))}
           </nav>

@@ -86,7 +86,7 @@ export function LookingFor({ onViewProjects }: LookingForProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {rolePrefs.map((pref, i) => (
                 <BlurFade key={i} delay={0.08 + i * 0.05}>
-                  <div className="h-full bg-white border border-border rounded-xl p-5 hover:border-accent/30 hover:shadow-sm transition-all duration-200">
+                  <div className="h-full bg-white rounded-2xl p-5 shadow-sm border border-stone-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                     <div className="flex items-start gap-3">
                       <span className="text-xl flex-shrink-0 mt-0.5">{pref.icon}</span>
                       <div>
@@ -105,11 +105,11 @@ export function LookingFor({ onViewProjects }: LookingForProps) {
         <BlurFade delay={0.22}>
           <div className="mb-10">
             <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-widest mb-5">Ideal company profile</h3>
-            <div className="bg-gradient-to-br from-bg-secondary to-white border border-border rounded-xl p-6 md:p-8">
+            <div className="bg-stone-50 rounded-2xl p-6 md:p-8 shadow-sm border border-stone-100">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {companyProfile.map((item, i) => (
                   <div key={i} className="flex items-start gap-2.5">
-                    <CheckCircle2 size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 size={16} className="text-indigo-500 flex-shrink-0 mt-0.5" />
                     <span className="text-text-primary text-sm leading-relaxed">{item}</span>
                   </div>
                 ))}
@@ -125,7 +125,7 @@ export function LookingFor({ onViewProjects }: LookingForProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {principles.map((p, i) => (
                 <BlurFade key={i} delay={0.30 + i * 0.05}>
-                  <div className="h-full p-5 bg-white border border-border rounded-xl hover:border-accent/30 hover:shadow-sm transition-all duration-200">
+                  <div className="h-full p-5 bg-white rounded-2xl shadow-sm border border-stone-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                     <div className="flex items-start gap-3">
                       <span className="text-xl flex-shrink-0 mt-0.5">{p.icon}</span>
                       <div>
