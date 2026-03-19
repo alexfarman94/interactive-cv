@@ -1,5 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+const MAX_TOKENS_LIMIT = 1000;
+const MAX_MESSAGES = 10;
+const MAX_SYSTEM_PROMPT_LENGTH = 8000;
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,11 +23,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
   }
 
-  const { messages, system, max_tokens = 1000 } = req.body;
+  const { messages, system, max_tokens = 500 } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: 'Invalid request body' });
   }
+
+  // Abuse protection: cap tokens, messages, and system prompt length
+  const clampedTokens = Math.min(Number(max_tokens) || 500, MAX_TOKENS_LIMIT);
+  const clampedMessages = messages.slice(-MAX_MESSAGES);
+  const clampedSystem = typeof system === 'string' ? system.slice(0, MAX_SYSTEM_PROMPT_LENGTH) : undefined;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -34,10 +43,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-3-5-haiku-20241022',
-        max_tokens,
-        system,
-        messages,
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: clampedTokens,
+        system: clampedSystem,
+        messages: clampedMessages,
       }),
     });
 
