@@ -1,6 +1,10 @@
 import { Download, Mail, Linkedin } from 'lucide-react';
 
-export function DownloadCTA() {
+interface DownloadCTAProps {
+  onDownloadCV: () => void;
+}
+
+export function DownloadCTA({ onDownloadCV }: DownloadCTAProps) {
   return (
     <footer className="py-12 bg-text-primary text-white">
       <div className="max-w-4xl mx-auto px-6 text-center">
@@ -23,14 +27,13 @@ export function DownloadCTA() {
             <Linkedin size={16} />
             LinkedIn
           </a>
-          <a
-            href="/alex-farman-cv.pdf"
-            download
+          <button
+            onClick={onDownloadCV}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-medium transition-colors"
           >
             <Download size={16} />
             Download CV (PDF)
-          </a>
+          </button>
         </div>
 
         <p className="text-gray-500 text-xs">

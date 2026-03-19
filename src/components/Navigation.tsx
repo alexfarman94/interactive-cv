@@ -1,12 +1,12 @@
-import { User, Briefcase, Zap, LayoutGrid } from 'lucide-react';
+import { User, Briefcase, Target, LayoutGrid } from 'lucide-react';
 
-export type TabId = 'profile' | 'career' | 'skills' | 'projects';
+export type TabId = 'profile' | 'career' | 'looking-for' | 'projects';
 
 const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
-  { id: 'profile',  label: 'Personal Profile',  icon: <User size={15} /> },
-  { id: 'career',   label: 'Career History',    icon: <Briefcase size={15} /> },
-  { id: 'skills',   label: 'Key Skills',         icon: <Zap size={15} /> },
-  { id: 'projects', label: 'Projects & Impact',  icon: <LayoutGrid size={15} /> },
+  { id: 'profile',     label: 'Personal Profile',      icon: <User size={15} /> },
+  { id: 'career',      label: 'Career History',        icon: <Briefcase size={15} /> },
+  { id: 'looking-for', label: "What I'm Looking For",  icon: <Target size={15} /> },
+  { id: 'projects',    label: 'Projects & Impact',     icon: <LayoutGrid size={15} /> },
 ];
 
 interface NavigationProps {

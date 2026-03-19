@@ -1,12 +1,13 @@
 import { TabId } from './Navigation';
 import { NumberTicker } from './ui/number-ticker';
 import { BlurFade } from './ui/blur-fade';
+import { ChevronDown } from 'lucide-react';
 
 interface HeroProps {
   onTabChange: (tab: TabId) => void;
 }
 
-export function Hero({ onTabChange }: HeroProps) {
+export function Hero({ onTabChange: _onTabChange }: HeroProps) {
   return (
     <section className="relative bg-bg-primary border-b border-border overflow-hidden">
 
@@ -28,7 +29,7 @@ export function Hero({ onTabChange }: HeroProps) {
           <BlurFade delay={0}>
             <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 bg-accent/8 border border-accent/20 text-accent text-sm font-semibold rounded-full">
               <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              GTM AI Strategy Consultant · Bristol, UK
+              GTM AI Strategy · Bristol, UK
             </div>
           </BlurFade>
 
@@ -49,8 +50,7 @@ export function Hero({ onTabChange }: HeroProps) {
           {/* Subheading */}
           <BlurFade delay={0.15}>
             <p className="text-lg text-text-secondary mb-10 max-w-2xl leading-relaxed">
-              Scaled AI adoption across a 300-person global sales org at HiBob. Built 26 products — 7 flagships at 75–80% adoption.
-              Looking for a Head of AI Strategy or GTM AI leadership role.
+              Scaled AI adoption across a 300-person global sales org at HiBob. Built 26 products, 7 flagships at 75-80% adoption. Now looking for an AI lead role inside a commercial team.
             </p>
           </BlurFade>
 
@@ -74,26 +74,15 @@ export function Hero({ onTabChange }: HeroProps) {
             </div>
           </BlurFade>
 
-          {/* CTA buttons */}
-          <BlurFade delay={0.28}>
-            <div className="flex flex-wrap gap-3">
-              {([
-                { id: 'projects', label: '26 projects & impact →' },
-                { id: 'career',   label: 'Career history →' },
-                { id: 'profile',  label: 'Personal profile →' },
-              ] as { id: TabId; label: string }[]).map(btn => (
-                <button
-                  key={btn.id}
-                  onClick={() => {
-                    onTabChange(btn.id);
-                    document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="px-4 py-2 text-sm font-semibold text-accent border border-accent/30 rounded-lg hover:bg-accent hover:text-white hover:border-accent transition-all duration-200"
-                >
-                  {btn.label}
-                </button>
-              ))}
-            </div>
+          {/* Scroll indicator */}
+          <BlurFade delay={0.30}>
+            <button
+              onClick={() => document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent transition-colors duration-200 group"
+            >
+              <ChevronDown size={18} className="group-hover:translate-y-0.5 transition-transform duration-200" />
+              Explore below
+            </button>
           </BlurFade>
 
         </div>
