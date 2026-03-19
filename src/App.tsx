@@ -5,10 +5,10 @@ import { PersonalProfile } from './components/PersonalProfile';
 import { CareerHistory } from './components/CareerHistory';
 import { LookingFor } from './components/LookingFor';
 import { ProjectPortfolio } from './components/ProjectPortfolio';
-import { AIAgent } from './components/AIAgent';
 import { DownloadCTA } from './components/DownloadCTA';
 import { FloatingActions } from './components/FloatingActions';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
+import { QAOverlay } from './components/QAOverlay';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('profile');
@@ -22,19 +22,24 @@ function App() {
   const closeLeadModal = () => setLeadModalOpen(false);
 
   return (
-    <div className="min-h-screen bg-bg-primary">
+    <div className="min-h-screen bg-bg-primary pb-24">
       <Hero onTabChange={handleTabChange} />
       <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
       <main id="tab-content" className="min-h-screen bg-bg-primary">
         {activeTab === 'profile' && <PersonalProfile />}
         {activeTab === 'career' && <CareerHistory />}
-        {activeTab === 'looking-for' && <LookingFor onDownloadCV={openLeadModal} />}
+        {activeTab === 'looking-for' && (
+          <LookingFor
+            onDownloadCV={openLeadModal}
+            onViewProjects={() => handleTabChange('projects')}
+          />
+        )}
         {activeTab === 'projects' && <ProjectPortfolio />}
       </main>
-      <AIAgent />
       <DownloadCTA onDownloadCV={openLeadModal} />
       <FloatingActions onDownloadCV={openLeadModal} />
       <LeadCaptureModal isOpen={leadModalOpen} onClose={closeLeadModal} />
+      <QAOverlay />
     </div>
   );
 }

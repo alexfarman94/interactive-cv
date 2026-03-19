@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Mail, Linkedin, Download, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { BlurFade } from './ui/blur-fade';
+import { ProjectRecommender } from './ProjectRecommender';
 
 interface LookingForProps {
-  onDownloadCV: () => void;
+  onDownloadCV?: () => void;
+  onViewProjects: () => void;
 }
 
 const rolePrefs = [
@@ -59,129 +60,7 @@ const principles = [
   },
 ];
 
-function AIPitchGenerator({ onDownloadCV }: { onDownloadCV: () => void }) {
-  const [roleInput, setRoleInput] = useState('');
-  const [pitch, setPitch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const generatePitch = async () => {
-    if (!roleInput.trim()) return;
-    setIsLoading(true);
-    setPitch('');
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          max_tokens: 300,
-          system: `You are writing on behalf of Alex Farman, a GTM AI specialist. Alex's background:
-- Built 26 AI products for HiBob's 300-person global sales org, 7 flagship tools reaching 75-80% adoption
-- 15,440+ hours saved annually across the tools he's built
-- ~30 FTE capacity unlocked from Deal Prep alone
-- 4 years as a Sales Engineer before moving into AI strategy (so deeply understands the commercial teams he builds for)
-- He designs tools that fit existing workflows, measures everything against real business metrics
-- He's a builder not just a strategist — he takes projects from problem identification through to shipping and tracking adoption
-- Looking for: AI Strategy Lead, AI Product Lead, Head of AI (GTM focused), Commercial AI Lead roles
-- Salary: £90k-£130k, full-time employed, remote-first UK or Bristol/London hybrid
-
-Write a concise, confident 2-3 sentence pitch explaining why Alex would be a strong fit for the role described by the user. Be specific, reference his actual experience, keep it conversational and direct. Do not start with "I" — write in third person ("Alex..."). No fluff, no generic statements.`,
-          messages: [
-            {
-              role: 'user',
-              content: `Generate a pitch for this role/context: ${roleInput}`,
-            },
-          ],
-        }),
-      });
-
-      const data = await response.json();
-      setPitch(data.content?.[0]?.text || 'Could not generate pitch. Please try again.');
-    } catch {
-      setPitch('Something went wrong. Please try again.');
-    }
-
-    setIsLoading(false);
-  };
-
-  return (
-    <div className="relative bg-gradient-to-br from-accent to-blue-700 rounded-2xl p-8 md:p-10 overflow-hidden">
-      {/* Subtle dot pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-      />
-      <div className="relative">
-        <div className="flex items-center gap-2 mb-2">
-          <Sparkles size={18} className="text-blue-200" />
-          <h3 className="text-xl md:text-2xl font-bold text-white">Is Alex a fit for your role?</h3>
-        </div>
-        <p className="text-blue-100 text-sm mb-6 leading-relaxed">
-          Tell me about the role you're hiring for and I'll generate a tailored pitch.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <input
-            type="text"
-            value={roleInput}
-            onChange={e => setRoleInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && !isLoading && generatePitch()}
-            placeholder="e.g. Head of AI at a 200-person B2B SaaS company..."
-            className="flex-1 px-4 py-2.5 bg-white/15 border border-white/25 rounded-lg text-sm text-white placeholder-blue-200 focus:outline-none focus:border-white/50 focus:bg-white/20 transition-colors"
-          />
-          <button
-            onClick={generatePitch}
-            disabled={isLoading || !roleInput.trim()}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-accent rounded-lg text-sm font-semibold hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm whitespace-nowrap"
-          >
-            {isLoading ? (
-              <><Loader2 size={14} className="animate-spin" /> Generating...</>
-            ) : (
-              <><Sparkles size={14} /> Generate pitch</>
-            )}
-          </button>
-        </div>
-
-        {pitch && (
-          <div className="bg-white/15 border border-white/20 rounded-xl p-4 mb-6">
-            <p className="text-white text-sm leading-relaxed">{pitch}</p>
-          </div>
-        )}
-
-        <div className="flex flex-wrap gap-3 pt-2 border-t border-white/15">
-          <a
-            href="mailto:alexfarman94@hotmail.co.uk"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white text-accent rounded-lg text-sm font-semibold hover:bg-blue-50 transition-colors duration-200 shadow-sm"
-          >
-            <Mail size={14} />
-            Email me
-          </a>
-          <a
-            href="https://www.linkedin.com/in/alex-farman-53575a106/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 text-white rounded-lg text-sm font-semibold transition-colors duration-200 border border-white/20"
-          >
-            <Linkedin size={14} />
-            LinkedIn
-          </a>
-          <button
-            onClick={onDownloadCV}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 hover:bg-white/25 text-white rounded-lg text-sm font-semibold transition-colors duration-200 border border-white/20"
-          >
-            <Download size={14} />
-            Download CV
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function LookingFor({ onDownloadCV }: LookingForProps) {
+export function LookingFor({ onViewProjects }: LookingForProps) {
   return (
     <div className="py-16 md:py-20">
       <div className="max-w-5xl mx-auto px-6">
@@ -261,9 +140,9 @@ export function LookingFor({ onDownloadCV }: LookingForProps) {
           </div>
         </BlurFade>
 
-        {/* AI Pitch Generator */}
+        {/* AI Project Recommender */}
         <BlurFade delay={0.45}>
-          <AIPitchGenerator onDownloadCV={onDownloadCV} />
+          <ProjectRecommender onViewProject={onViewProjects} />
         </BlurFade>
 
       </div>
