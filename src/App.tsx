@@ -7,6 +7,8 @@ import { LookingFor } from './components/LookingFor';
 import { ProjectPortfolio } from './components/ProjectPortfolio';
 import { DownloadCTA } from './components/DownloadCTA';
 import { FloatingActions } from './components/FloatingActions';
+import { BackToTop } from './components/BackToTop';
+import { TabNav } from './components/TabNav';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { QAOverlay } from './components/QAOverlay';
 import { JobSpecAnalyzer } from './components/JobSpecAnalyzer';
@@ -18,6 +20,7 @@ function App() {
 
   const handleTabChange = (tab: TabId) => {
     setActiveTab(tab);
+    document.getElementById('main-nav')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const openLeadModal = () => setLeadModalOpen(true);
@@ -40,12 +43,14 @@ function App() {
           />
         )}
         {activeTab === 'projects' && <ProjectPortfolio />}
+        <TabNav activeTab={activeTab} onTabChange={handleTabChange} />
       </main>
       <DownloadCTA onDownloadCV={openLeadModal} />
       <FloatingActions onDownloadCV={openLeadModal} />
       <LeadCaptureModal isOpen={leadModalOpen} onClose={closeLeadModal} />
       <QAOverlay onOpenJobAnalyzer={openJobAnalyzer} />
       <JobSpecAnalyzer isOpen={jobAnalyzerOpen} onClose={closeJobAnalyzer} />
+      <BackToTop />
     </div>
   );
 }
