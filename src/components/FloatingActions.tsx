@@ -16,19 +16,19 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
 
   const actions = [
     {
-      icon: <Download size={15} />,
+      icon: <Download size={16} />,
       label: 'Download CV',
       onClick: onDownloadCV,
       href: undefined,
     },
     {
-      icon: <Linkedin size={15} />,
+      icon: <Linkedin size={16} />,
       label: 'LinkedIn',
       onClick: undefined,
       href: 'https://www.linkedin.com/in/alex-farman-53575a106/',
     },
     {
-      icon: <Mail size={15} />,
+      icon: <Mail size={16} />,
       label: 'Email',
       onClick: undefined,
       href: 'mailto:alexfarman94@hotmail.co.uk',
@@ -39,11 +39,11 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-20 right-5 z-40 flex flex-col gap-2"
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 24 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="fixed bottom-6 right-5 z-40 flex flex-col gap-2.5"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           {actions.map((action, i) =>
             action.href ? (
@@ -52,25 +52,19 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
                 href={action.href}
                 target={action.href.startsWith('mailto') ? undefined : '_blank'}
                 rel={action.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                className="group flex items-center gap-2 pl-3 pr-4 py-2.5 bg-white/80 backdrop-blur-md border border-stone-200/50 hover:border-indigo-300/50 rounded-2xl shadow-lg shadow-stone-200/50 hover:shadow-xl text-sm font-semibold text-text-primary hover:text-indigo-600 transition-all duration-200"
                 title={action.label}
+                className="w-10 h-10 rounded-full bg-white border border-stone-200 shadow-md flex items-center justify-center text-stone-500 hover:text-indigo-600 hover:shadow-lg hover:border-indigo-200 transition-all duration-200"
               >
-                <span className="text-text-secondary group-hover:text-indigo-600 transition-colors duration-200">
-                  {action.icon}
-                </span>
-                <span className="hidden md:inline">{action.label}</span>
+                {action.icon}
               </a>
             ) : (
               <button
                 key={i}
                 onClick={action.onClick}
-                className="group flex items-center gap-2 pl-3 pr-4 py-2.5 bg-white/80 backdrop-blur-md border border-stone-200/50 hover:border-indigo-300/50 rounded-2xl shadow-lg shadow-stone-200/50 hover:shadow-xl text-sm font-semibold text-text-primary hover:text-indigo-600 transition-all duration-200"
                 title={action.label}
+                className="w-10 h-10 rounded-full bg-white border border-stone-200 shadow-md flex items-center justify-center text-stone-500 hover:text-indigo-600 hover:shadow-lg hover:border-indigo-200 transition-all duration-200"
               >
-                <span className="text-text-secondary group-hover:text-indigo-600 transition-colors duration-200">
-                  {action.icon}
-                </span>
-                <span className="hidden md:inline">{action.label}</span>
+                {action.icon}
               </button>
             )
           )}

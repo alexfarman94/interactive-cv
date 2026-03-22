@@ -22,7 +22,7 @@ function App() {
   const closeLeadModal = () => setLeadModalOpen(false);
 
   return (
-    <div className="min-h-screen bg-bg-primary pb-24">
+    <div className="min-h-screen bg-bg-primary pb-8">
       <Hero onTabChange={handleTabChange} />
       <Navigation activeTab={activeTab} onTabChange={handleTabChange} />
       <main id="tab-content" className="min-h-screen bg-bg-primary">
