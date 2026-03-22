@@ -33,31 +33,37 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
           </div>
 
           {/* Tab strip */}
-          <nav className="flex overflow-x-auto scrollbar-hide flex-1 py-1.5">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => onTabChange(tab.id)}
-                className={`relative flex items-center gap-1.5 px-4 md:px-5 py-2.5 text-sm font-semibold whitespace-nowrap rounded-lg transition-colors duration-200 ${
-                  activeTab === tab.id
-                    ? 'text-indigo-600'
-                    : 'text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="active-tab"
-                    className="absolute inset-0 bg-indigo-50 rounded-lg"
-                    transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
-                  />
-                )}
-                <span className={`relative z-10 transition-colors duration-200 ${activeTab === tab.id ? 'text-indigo-600' : 'text-text-secondary'}`}>
-                  {tab.icon}
-                </span>
-                <span className="relative z-10">{tab.label}</span>
-              </button>
-            ))}
-          </nav>
+          <div className="relative flex-1 overflow-hidden">
+            <nav className="flex overflow-x-auto scrollbar-hide py-1.5">
+              {tabs.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => onTabChange(tab.id)}
+                  className={`relative flex items-center gap-1.5 px-3 md:px-5 py-2.5 text-sm font-semibold whitespace-nowrap rounded-lg transition-colors duration-200 ${
+                    activeTab === tab.id
+                      ? 'text-indigo-600'
+                      : 'text-text-secondary hover:text-text-primary'
+                  }`}
+                >
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="active-tab"
+                      className="absolute inset-0 bg-indigo-50 rounded-lg"
+                      transition={{ type: 'spring', bounce: 0.15, duration: 0.5 }}
+                    />
+                  )}
+                  <span className={`relative z-10 transition-colors duration-200 ${activeTab === tab.id ? 'text-indigo-600' : 'text-text-secondary'}`}>
+                    {tab.icon}
+                  </span>
+                  <span className={`relative z-10 ${activeTab === tab.id ? 'inline' : 'hidden md:inline'}`}>
+                    {tab.label}
+                  </span>
+                </button>
+              ))}
+            </nav>
+            {/* Right-fade scroll hint — mobile only */}
+            <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent pointer-events-none z-10 md:hidden" />
+          </div>
         </div>
       </div>
     </div>

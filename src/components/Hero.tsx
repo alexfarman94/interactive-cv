@@ -1,7 +1,6 @@
 import { TabId } from './Navigation';
 import { NumberTicker } from './ui/number-ticker';
 import { BlurFade } from './ui/blur-fade';
-import { ChevronDown } from 'lucide-react';
 
 interface HeroProps {
   onTabChange: (tab: TabId) => void;
@@ -67,17 +66,6 @@ export function Hero({ onTabChange: _onTabChange }: HeroProps) {
                 </div>
               ))}
             </div>
-          </BlurFade>
-
-          {/* Scroll indicator */}
-          <BlurFade delay={0.30}>
-            <button
-              onClick={() => document.getElementById('tab-content')?.scrollIntoView({ behavior: 'smooth' })}
-              className="flex items-center gap-2 text-sm text-stone-600 hover:text-indigo-400 transition-colors duration-200 group"
-            >
-              <ChevronDown size={18} className="group-hover:translate-y-0.5 transition-transform duration-200" />
-              Explore below
-            </button>
           </BlurFade>
 
         </div>

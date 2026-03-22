@@ -8,6 +8,14 @@ interface Message {
   content: string;
 }
 
+const PROMPT_CHIPS = [
+  { label: 'Summarise Alex in 30 seconds for a Head of AI role', autoSend: true },
+  { label: 'Show me the projects most relevant to AI strategy', autoSend: true },
+  { label: 'Compare Alex to this job description', autoSend: false },
+  { label: 'Generate 5 interview questions I should ask Alex', autoSend: true },
+  { label: 'Build me a shortlist of reasons to hire him', autoSend: true },
+];
+
 export function QAOverlay() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -28,8 +36,8 @@ export function QAOverlay() {
     }
   }, [isOpen]);
 
-  const sendMessage = async () => {
-    const trimmed = input.trim();
+  const sendMessage = async (text?: string) => {
+    const trimmed = (text ?? input).trim();
     if (!trimmed || isLoading) return;
 
     const newMessages: Message[] = [...messages, { role: 'user', content: trimmed }];
@@ -51,8 +59,8 @@ export function QAOverlay() {
       });
 
       const data = await response.json();
-      const text = data.content?.[0]?.text || "Sorry, I couldn't process that. Try asking something else.";
-      setMessages([...newMessages, { role: 'assistant', content: text }]);
+      const reply = data.content?.[0]?.text || "Sorry, I couldn't process that. Try asking something else.";
+      setMessages([...newMessages, { role: 'assistant', content: reply }]);
     } catch {
       setMessages([
         ...newMessages,
@@ -66,6 +74,15 @@ export function QAOverlay() {
     setIsLoading(false);
   };
 
+  const handleChipClick = (chip: typeof PROMPT_CHIPS[0]) => {
+    if (chip.autoSend) {
+      sendMessage(chip.label);
+    } else {
+      setInput(chip.label + ' ');
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     sendMessage();
@@ -77,9 +94,9 @@ export function QAOverlay() {
 
   return (
     <>
-      {/* FAB button */}
+      {/* FAB button — icon only on mobile, pill on desktop */}
       <motion.button
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 pl-4 pr-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-200 transition-colors duration-200"
+        className="fixed bottom-6 right-5 md:right-auto md:left-1/2 md:-translate-x-1/2 z-40 flex items-center justify-center w-10 h-10 md:w-auto md:h-auto md:pl-4 md:pr-5 md:py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-200/60 transition-colors duration-200"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.3, ease: 'easeOut' }}
@@ -87,7 +104,7 @@ export function QAOverlay() {
         aria-label="Ask about Alex"
       >
         <MessageCircle size={16} />
-        <span className="text-sm font-medium">Ask me anything</span>
+        <span className="hidden md:inline ml-2 text-sm font-medium">Ask me anything</span>
       </motion.button>
 
       {/* Panel */}
@@ -112,7 +129,7 @@ export function QAOverlay() {
               transition={{ duration: 0.25, ease: 'easeOut' }}
               onKeyDown={handleKeyDown}
             >
-              <div className="bg-white rounded-t-2xl md:rounded-2xl shadow-2xl border border-stone-200/60 flex flex-col max-h-[60vh]">
+              <div className="bg-white rounded-t-2xl md:rounded-2xl shadow-2xl border border-stone-200/60 flex flex-col max-h-[65vh]">
                 {/* Header */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-stone-100">
                   <div className="flex items-center gap-2">
@@ -130,12 +147,20 @@ export function QAOverlay() {
                   </button>
                 </div>
 
-                {/* Messages */}
+                {/* Messages / chips */}
                 <div ref={answersRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-[80px]">
                   {messages.length === 0 && !isLoading && (
-                    <p className="text-sm text-stone-400 text-center py-4">
-                      Ask anything — salary expectations, projects, availability...
-                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 pt-1">
+                      {PROMPT_CHIPS.map((chip, i) => (
+                        <button
+                          key={i}
+                          onClick={() => handleChipClick(chip)}
+                          className="border border-stone-200 rounded-xl px-3 py-2.5 text-xs text-stone-600 hover:border-indigo-300 hover:text-indigo-600 hover:bg-indigo-50 text-left transition-all duration-150 leading-snug"
+                        >
+                          {chip.label}
+                        </button>
+                      ))}
+                    </div>
                   )}
                   {messages.map((msg, i) => (
                     <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>

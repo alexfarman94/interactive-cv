@@ -70,9 +70,9 @@ export function LookingFor({ onViewProjects }: LookingForProps) {
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-3 mb-3">
               <h2 className="text-3xl md:text-4xl font-bold text-text-primary">Open to new opportunities</h2>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Available now
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                1 month notice
               </span>
             </div>
             <p className="text-text-secondary text-lg">Here's exactly what I'm looking for.</p>
