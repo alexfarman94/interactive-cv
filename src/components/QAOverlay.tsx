@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, X, MessageCircle, Loader2 } from 'lucide-react';
+import { Send, X, Loader2, Sparkles } from 'lucide-react';
 import { agentSystemPrompt } from '../data/agentPrompt';
 
 interface Message {
@@ -107,7 +107,7 @@ export function QAOverlay({ onOpenJobAnalyzer }: QAOverlayProps) {
         onClick={() => setIsOpen(true)}
         aria-label="Ask about Alex"
       >
-        <MessageCircle size={16} />
+        <Sparkles size={16} />
       </motion.button>
 
       {/* Panel */}
@@ -137,7 +137,7 @@ export function QAOverlay({ onOpenJobAnalyzer }: QAOverlayProps) {
                 <div className="flex items-center justify-between px-4 py-3 border-b border-stone-100">
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
-                      <MessageCircle size={12} className="text-white" />
+                      <Sparkles size={12} className="text-white" />
                     </div>
                     <span className="text-sm font-semibold text-text-primary">Ask about Alex</span>
                   </div>
