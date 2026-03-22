@@ -39,7 +39,7 @@ export function FloatingActions({ onDownloadCV }: FloatingActionsProps) {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-20 md:bottom-6 right-5 z-40 flex flex-col gap-2.5"
+          className="fixed bottom-20 right-5 z-40 flex flex-col gap-2.5"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}

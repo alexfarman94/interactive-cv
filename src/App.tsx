@@ -9,10 +9,12 @@ import { DownloadCTA } from './components/DownloadCTA';
 import { FloatingActions } from './components/FloatingActions';
 import { LeadCaptureModal } from './components/LeadCaptureModal';
 import { QAOverlay } from './components/QAOverlay';
+import { JobSpecAnalyzer } from './components/JobSpecAnalyzer';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('profile');
   const [leadModalOpen, setLeadModalOpen] = useState(false);
+  const [jobAnalyzerOpen, setJobAnalyzerOpen] = useState(false);
 
   const handleTabChange = (tab: TabId) => {
     setActiveTab(tab);
@@ -20,6 +22,8 @@ function App() {
 
   const openLeadModal = () => setLeadModalOpen(true);
   const closeLeadModal = () => setLeadModalOpen(false);
+  const openJobAnalyzer = () => setJobAnalyzerOpen(true);
+  const closeJobAnalyzer = () => setJobAnalyzerOpen(false);
 
   return (
     <div className="min-h-screen bg-bg-primary pb-8">
@@ -32,6 +36,7 @@ function App() {
           <LookingFor
             onDownloadCV={openLeadModal}
             onViewProjects={() => handleTabChange('projects')}
+            onOpenJobAnalyzer={openJobAnalyzer}
           />
         )}
         {activeTab === 'projects' && <ProjectPortfolio />}
@@ -39,7 +44,8 @@ function App() {
       <DownloadCTA onDownloadCV={openLeadModal} />
       <FloatingActions onDownloadCV={openLeadModal} />
       <LeadCaptureModal isOpen={leadModalOpen} onClose={closeLeadModal} />
-      <QAOverlay />
+      <QAOverlay onOpenJobAnalyzer={openJobAnalyzer} />
+      <JobSpecAnalyzer isOpen={jobAnalyzerOpen} onClose={closeJobAnalyzer} />
     </div>
   );
 }

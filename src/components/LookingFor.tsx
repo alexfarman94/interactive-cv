@@ -1,10 +1,11 @@
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Sparkles } from 'lucide-react';
 import { BlurFade } from './ui/blur-fade';
 import { ProjectRecommender } from './ProjectRecommender';
 
 interface LookingForProps {
   onDownloadCV?: () => void;
   onViewProjects: () => void;
+  onOpenJobAnalyzer: () => void;
 }
 
 const rolePrefs = [
@@ -60,7 +61,7 @@ const principles = [
   },
 ];
 
-export function LookingFor({ onViewProjects }: LookingForProps) {
+export function LookingFor({ onViewProjects, onOpenJobAnalyzer }: LookingForProps) {
   return (
     <div className="py-16 md:py-20">
       <div className="max-w-5xl mx-auto px-6">
@@ -77,6 +78,25 @@ export function LookingFor({ onViewProjects }: LookingForProps) {
             </div>
             <p className="text-text-secondary text-lg">Here's exactly what I'm looking for.</p>
           </div>
+        </BlurFade>
+
+        {/* Job Spec Analyzer CTA */}
+        <BlurFade delay={0.04}>
+          <button
+            onClick={onOpenJobAnalyzer}
+            className="w-full mb-10 group flex items-center justify-between gap-4 p-5 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 hover:border-indigo-300 rounded-2xl transition-all duration-200 text-left"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                <Sparkles size={18} className="text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-indigo-900">Analyse how Alex fits your role</p>
+                <p className="text-xs text-indigo-700 mt-0.5">Paste or upload a job spec and get an AI-generated fit report in seconds</p>
+              </div>
+            </div>
+            <span className="text-indigo-400 group-hover:text-indigo-600 transition-colors flex-shrink-0">→</span>
+          </button>
         </BlurFade>
 
         {/* Role Preferences */}

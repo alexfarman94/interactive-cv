@@ -16,7 +16,11 @@ const PROMPT_CHIPS = [
   { label: 'Build me a shortlist of reasons to hire him', autoSend: true },
 ];
 
-export function QAOverlay() {
+interface QAOverlayProps {
+  onOpenJobAnalyzer: () => void;
+}
+
+export function QAOverlay({ onOpenJobAnalyzer }: QAOverlayProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -75,11 +79,11 @@ export function QAOverlay() {
   };
 
   const handleChipClick = (chip: typeof PROMPT_CHIPS[0]) => {
-    if (chip.autoSend) {
-      sendMessage(chip.label);
+    if (!chip.autoSend) {
+      setIsOpen(false);
+      onOpenJobAnalyzer();
     } else {
-      setInput(chip.label + ' ');
-      setTimeout(() => inputRef.current?.focus(), 50);
+      sendMessage(chip.label);
     }
   };
 
@@ -96,7 +100,7 @@ export function QAOverlay() {
     <>
       {/* FAB button — icon only on mobile, pill on desktop */}
       <motion.button
-        className="fixed bottom-6 right-5 md:right-auto md:left-1/2 md:-translate-x-1/2 z-40 flex items-center justify-center w-10 h-10 md:w-auto md:h-auto md:pl-4 md:pr-5 md:py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-200/60 transition-colors duration-200"
+        className="fixed bottom-6 right-5 z-40 flex items-center justify-center w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg shadow-indigo-200/60 transition-colors duration-200"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.3, ease: 'easeOut' }}
@@ -104,7 +108,6 @@ export function QAOverlay() {
         aria-label="Ask about Alex"
       >
         <MessageCircle size={16} />
-        <span className="hidden md:inline ml-2 text-sm font-medium">Ask me anything</span>
       </motion.button>
 
       {/* Panel */}
