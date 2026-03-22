@@ -16,7 +16,7 @@ export function BackToTop() {
       {visible && (
         <motion.button
           className="fixed bottom-6 left-5 z-40 w-10 h-10 rounded-full bg-white border border-stone-200 shadow-md flex items-center justify-center text-stone-500 hover:text-indigo-600 hover:shadow-lg hover:border-indigo-200 transition-all duration-200 md:hidden"
-          onClick={() => document.getElementById('main-nav')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
