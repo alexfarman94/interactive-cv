@@ -1,12 +1,13 @@
+import { useState, useEffect } from 'react';
 import { User, Briefcase, Target, LayoutGrid, Sparkles, FileDown, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TabId } from './Navigation';
 
 const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
-  { id: 'profile',     label: 'Profile',       icon: <User size={15} /> },
-  { id: 'career',      label: 'Career',         icon: <Briefcase size={15} /> },
-  { id: 'looking-for', label: 'Looking For',    icon: <Target size={15} /> },
-  { id: 'projects',    label: 'Projects',       icon: <LayoutGrid size={15} /> },
+  { id: 'profile',     label: 'Profile',      icon: <User size={15} /> },
+  { id: 'career',      label: 'Career',        icon: <Briefcase size={15} /> },
+  { id: 'looking-for', label: 'Looking For',   icon: <Target size={15} /> },
+  { id: 'projects',    label: 'Projects',      icon: <LayoutGrid size={15} /> },
 ];
 
 interface NavbarProps {
@@ -17,9 +18,17 @@ interface NavbarProps {
 }
 
 export function Navbar({ activeTab, onTabChange, onAskAI, onDownloadCV }: NavbarProps) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <div className="sticky top-3 z-50 px-3 md:px-6">
-      <div className="max-w-5xl mx-auto bg-stone-950 rounded-2xl px-3 h-14 flex items-center gap-1 shadow-xl shadow-black/20">
+      <div className={`max-w-5xl mx-auto bg-stone-950 rounded-2xl px-3 flex items-center gap-1 shadow-xl shadow-black/20 transition-all duration-300 ${scrolled ? 'h-10' : 'h-12'}`}>
 
         {/* Left: Branding */}
         <div className="flex items-center gap-2.5 pr-3 mr-1 flex-shrink-0">
@@ -41,14 +50,16 @@ export function Navbar({ activeTab, onTabChange, onAskAI, onDownloadCV }: Navbar
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`relative flex items-center gap-1.5 px-2.5 md:px-3 py-2 text-sm font-medium whitespace-nowrap rounded-xl transition-colors duration-150 ${
-                activeTab === tab.id ? 'text-white' : 'text-stone-400 hover:text-stone-200'
+              className={`relative flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 text-sm whitespace-nowrap rounded-xl transition-colors duration-150 ${
+                activeTab === tab.id
+                  ? 'text-white font-semibold'
+                  : 'text-stone-400 font-medium hover:text-stone-200'
               }`}
             >
               {activeTab === tab.id && (
                 <motion.div
                   layoutId="active-pill"
-                  className="absolute inset-0 bg-white/10 rounded-xl"
+                  className="absolute inset-0 bg-white/[0.15] rounded-xl"
                   transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
                 />
               )}
@@ -63,10 +74,10 @@ export function Navbar({ activeTab, onTabChange, onAskAI, onDownloadCV }: Navbar
 
         {/* Right: Actions */}
         <div className="flex items-center gap-1 pl-1 flex-shrink-0">
-          {/* Ask AI */}
+          {/* Ask AI — ghost indigo, less dominant */}
           <button
             onClick={onAskAI}
-            className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-2.5 md:px-3 py-2 text-sm font-medium transition-colors duration-150"
+            className="flex items-center gap-1.5 bg-indigo-600/20 border border-indigo-500/40 text-indigo-300 hover:bg-indigo-600 hover:border-indigo-600 hover:text-white rounded-xl px-2.5 md:px-3 py-1.5 text-sm font-medium transition-colors duration-150"
           >
             <Sparkles size={14} />
             <span className="hidden md:inline">Ask AI</span>
@@ -75,11 +86,11 @@ export function Navbar({ activeTab, onTabChange, onAskAI, onDownloadCV }: Navbar
           {/* Download CV */}
           <button
             onClick={onDownloadCV}
-            className="flex items-center gap-1.5 border border-white/20 hover:bg-white/10 text-stone-300 hover:text-white rounded-xl px-2.5 md:px-3 py-2 text-sm font-medium transition-colors duration-150"
+            className="flex items-center gap-1.5 border border-white/20 hover:bg-white/10 text-stone-300 hover:text-white rounded-xl px-2.5 md:px-3 py-1.5 text-sm font-medium transition-colors duration-150"
             aria-label="Download CV"
           >
             <FileDown size={14} />
-            <span className="hidden md:inline">CV</span>
+            <span className="hidden md:inline">Download CV</span>
           </button>
 
           {/* LinkedIn */}
