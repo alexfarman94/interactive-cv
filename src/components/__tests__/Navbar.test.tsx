@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Navbar } from '../Navbar';
 
@@ -48,7 +48,7 @@ describe('Navbar', () => {
 
   it('Download CV button calls onDownloadCV', async () => {
     render(<Navbar {...defaultProps} />);
-    await userEvent.click(screen.getByText('Download CV'));
+    await userEvent.click(screen.getByRole('button', { name: /download cv/i }));
     expect(defaultProps.onDownloadCV).toHaveBeenCalledTimes(1);
   });
 
@@ -61,8 +61,10 @@ describe('Navbar', () => {
   it('applies compact class after scrolling past 80px', () => {
     render(<Navbar {...defaultProps} />);
     // Simulate scroll event
-    Object.defineProperty(window, 'scrollY', { value: 100, writable: true });
-    fireEvent.scroll(window);
+    act(() => {
+      Object.defineProperty(window, 'scrollY', { value: 100, writable: true, configurable: true });
+      fireEvent.scroll(window);
+    });
     // The bar div should have h-10 class (compact)
     const bar = document.querySelector('.max-w-5xl');
     expect(bar?.className).toContain('h-10');
