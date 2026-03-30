@@ -11,22 +11,34 @@ interface SkillGroup {
 
 const toolGroups: SkillGroup[] = [
   {
-    category: 'AI Platforms',
+    category: 'AI & Agents',
     emoji: '🤖',
     description: 'Hands-on product development and workflow design',
-    skills: ['GPT-4o / GPT-5+', 'Claude (Anthropic)', 'Gemini', 'NotebookLM', 'Inventive'],
+    skills: ['Claude (Anthropic)', 'GPT-4o', 'Gemini', 'Anthropic API', 'OpenAI API', 'NotebookLM', 'MCP integrations'],
   },
   {
-    category: 'Revenue & GTM',
-    emoji: '📊',
-    description: 'Daily use across sales engineering and AI strategy',
-    skills: ['Salesforce', 'Clari', 'Gong', 'Outreach'],
+    category: 'Prompt & Workflow Architecture',
+    emoji: '🧠',
+    description: 'Multi-agent design, chaining and system prompt architecture',
+    skills: ['Prompt engineering', 'Multi-agent design', 'LLM chaining', 'System prompt architecture'],
   },
   {
     category: 'Automation & Integration',
     emoji: '⚙️',
     description: 'Workflow automation and system integration',
-    skills: ['Zapier', 'Workato'],
+    skills: ['n8n', 'Make', 'Zapier', 'Workato'],
+  },
+  {
+    category: 'Development & Infra',
+    emoji: '💻',
+    description: 'Front-end and backend tooling via personal projects',
+    skills: ['Next.js', 'Supabase', 'Clerk', 'JavaScript', 'JSON', 'REST APIs'],
+  },
+  {
+    category: 'CRM & GTM',
+    emoji: '📊',
+    description: 'Daily use across sales engineering and AI strategy',
+    skills: ['Salesforce', 'Clari', 'Gong', 'Outreach', 'HubSpot'],
   },
   {
     category: 'Productivity & Ops',
@@ -48,7 +60,7 @@ const competencies: Competency[] = [
     title: 'AI Product Ownership',
     level: 5,
     tags: ['End-to-end', 'Full lifecycle', 'Internal tools'],
-    summary: 'Ideation → requirements → build → test → release → enable → iterate. 26 products shipped across a 300-person org.',
+    summary: 'Ideation → requirements → build → test → release → enable → iterate. 20+ tools shipped across a 300-person org.',
   },
   {
     title: 'GTM Enablement & Change Management',

@@ -10,7 +10,7 @@ KEY FACTS ABOUT ALEX:
 - Current role: GTM AI Strategy Consultant at HiBob (July 2025–present)
 - Previous: Senior Solutions Consultant at HiBob, 3.5 years Sales Engineer at Bullhorn
 - Expertise: Building AI products from scratch, driving GTM adoption, sales enablement, RevOps
-- Built 26 AI tools in production; 80% global adoption on flagship tool; saved 4,440 hrs/yr
+- Built 20+ AI tools in production; driven 20k+ hours of productivity across the org; 80%+ adoption across sub-departments; saved 4,440 hrs/yr on Demo Prep alone
 - Scaled certified AI usage 150% in 60 days across a 300-person org
 - Reduced MQL→SQL time from 18 days to 3 days (projected, executive initiative)
 - Awards: Global AI Innovation Award (HiBob), International Solutions Consultant of the Year (Bullhorn 22/23)
