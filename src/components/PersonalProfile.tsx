@@ -4,7 +4,7 @@ import { BlurFade } from './ui/blur-fade';
 const hobbies = [
   { emoji: '🏛️', label: 'Renovating a Victorian terrace' },
   { emoji: '🏃', label: 'Training for distance events' },
-  { emoji: '☕', label: 'Making pour-over coffee and baking sourdough' },
+  { emoji: '🥐', label: 'Baking pastries' },
   { emoji: '🎹', label: 'Playing piano (not well)' },
   { emoji: '🐕', label: 'Walking Barney the Golden Retriever' },
 ];
@@ -76,11 +76,10 @@ export function PersonalProfile() {
             <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-widest mb-4">About</h3>
             <div className="bg-bg-secondary rounded-2xl p-6 md:p-8 shadow-sm">
               <p className="text-text-primary text-lg leading-relaxed mb-4">
-                I build AI tools for sales teams and own the strategy for how we use AI across GTM at HiBob.
-                I take projects from identifying the problem through to shipping the product and tracking adoption. I design tools that fit into existing workflows and measure everything against real business metrics.
+                I build and scale internal AI systems and Agents, working at the connection point between strategy, architecture and hands-on delivery. My background is a blend of commercial and technical enterprise sales with the last 18 months scaling internal AI operations across a 300 person GTM org.
               </p>
               <p className="text-text-secondary leading-relaxed">
-                Before this I was a Sales Engineer for 4 years at Bullhorn and HiBob. I know what happens in deals, which means I know what to solve for when building tools for salespeople.
+                I map workflows from IC to VP, align tooling to departmental strategy and build solutions from scratch which serve everybody in the chain. At HiBob, who has been AI first for 24 months, I have built, consolidated and enabled the org to 80%+ adoption, building and shipping 20+ tools and driving upwards of 20k hours productivity. I own the full lifecycle including scoping, prompt architecture, PRDs, integration design, agent workflows and enablement. I work closely between the business and engineering teams to ship production grade solutions.
               </p>
             </div>
           </div>
